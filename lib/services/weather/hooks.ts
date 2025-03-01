@@ -3,7 +3,8 @@
 import { useQuery } from "@tanstack/react-query"
 import { getCurrentWeather, getForecast } from "."
 import type { ForecastData, WeatherData } from "./types"
-import { convertWeatherData } from "@/app/utils/temperature"
+import { convertWeatherData } from "@/lib/utils";
+
 
 export function useCurrentWeather(query: string, units: 'metric' | 'imperial' = 'metric') {
   const result = useQuery<WeatherData>({
