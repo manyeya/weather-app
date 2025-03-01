@@ -4,7 +4,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Loading() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-purple-900 flex items-center">
+    <div className="min-h-screen flex items-center">
       <div className="max-w-7xl mx-auto">
         {/* Header Section Skeleton */}
         <div className="flex flex-col items-center mb-4">
