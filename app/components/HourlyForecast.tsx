@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
+import { Area, AreaChart, } from "recharts"
 
 import {
   ChartConfig,
@@ -76,7 +76,7 @@ export function HourlyForecast({ forecast }: HourlyForecastProps) {
         <div className="pt-2 sm:pt-3 text-white/90">
           <ChartContainer
             config={chartConfig}
-            className="aspect-auto h-[200px] w-full"
+            className="aspect-auto min-h-[140px] h-[140px] max-h-[300px] w-full"
           >
             <AreaChart data={chartData}>
               <defs>
@@ -93,25 +93,6 @@ export function HourlyForecast({ forecast }: HourlyForecastProps) {
                   />
                 </linearGradient>
               </defs>
-              <CartesianGrid 
-                vertical={false} 
-                stroke="rgba(255, 255, 255, 0.1)"
-              />
-              <XAxis
-                dataKey="time"
-                tickLine={false}
-                axisLine={false}
-                tickMargin={8}
-                minTickGap={32}
-                tick={{ fill: 'rgba(255, 255, 255, 0.7)' }}
-                tickFormatter={(value) => {
-                  const date = new Date(value)
-                  return date.toLocaleTimeString("en-US", {
-                    hour: "numeric",
-                    minute: "2-digit",
-                  })
-                }}
-              />
               <ChartTooltip
                 cursor={false}
                 contentStyle={{
@@ -129,6 +110,7 @@ export function HourlyForecast({ forecast }: HourlyForecastProps) {
                       })
                     }}
                     indicator="dot"
+                    
                   />
                 }
               />

@@ -41,13 +41,10 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-purple-900 p-12 flex items-center">
+    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-purple-900 flex items-center">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
         <div className="flex flex-col items-center mb-4">
-          <h1 className="text-4xl font-light text-white/90 tracking-wide mb-4">
-            Weather Forecast
-          </h1>
           <div className="w-full max-w-2xl flex justify-between items-center">
             <SearchBar onSearch={handleSearch} />
             <button
