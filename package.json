@@ -2,6 +2,22 @@
   "name": "weather-app",
   "version": "0.1.0",
   "private": true,
+  "description": "A modern weather application built with Next.js that provides current weather conditions and forecasts",
+  "keywords": [
+    "weather",
+    "forecast",
+    "nextjs",
+    "react",
+    "typescript",
+    "tailwindcss"
+  ],
+  "author": "Manyeya",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manyeya/weather-app"
+  },
+  "homepage": "https://github.com/manyeya/weather-app#readme",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
