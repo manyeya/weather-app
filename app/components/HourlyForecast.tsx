@@ -6,8 +6,6 @@ import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
 import {
   ChartConfig,
   ChartContainer,
-  ChartLegend,
-  ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
@@ -75,7 +73,7 @@ export function HourlyForecast({ forecast }: HourlyForecastProps) {
             </SelectContent>
           </Select>
         </div>
-        <div className="px-2 pt-2 sm:px-4 sm:pt-3 text-white/90">
+        <div className="pt-2 sm:pt-3 text-white/90">
           <ChartContainer
             config={chartConfig}
             className="aspect-auto h-[200px] w-full"
@@ -141,7 +139,6 @@ export function HourlyForecast({ forecast }: HourlyForecastProps) {
                 stroke="rgba(255, 255, 255, 0.9)"
                 strokeWidth={2}
               />
-              <ChartLegend content={<ChartLegendContent />} />
             </AreaChart>
           </ChartContainer>
         </div>
