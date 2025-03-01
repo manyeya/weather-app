@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import SearchBar from './components/SearchBar';
 import WeatherCard from './components/WeatherCard';
 import ForecastCard from './components/ForecastCard';
+import FavoritesCard from './components/FavoritesCard';
 import { useCurrentWeather, useForecast } from '@/lib/services/weather/hooks';
 import { useUserLocation } from '@/lib/services/location/hooks';
 import { useFavoriteCities } from '@/lib/services/storage/hooks';
@@ -32,6 +33,10 @@ export default function Home() {
 
   const handleSearch = (searchQuery: string) => {
     setQuery(searchQuery);
+  };
+
+  const handleSelectCity = (cityQuery: string) => {
+    setQuery(cityQuery);
   };
 
   return (
@@ -63,7 +68,11 @@ export default function Home() {
 
         {(weatherError || forecastError) && (
           <div className="relative backdrop-blur-glassmorphic bg-red-500/10 border border-red-500/20 rounded-2xl p-6 text-white/90 text-center max-w-2xl mx-auto">
-            Failed to fetch weather data. Please try again.
+            <p className="text-lg mb-2">
+              {weatherError instanceof Error ? weatherError.message :
+                forecastError instanceof Error ? forecastError.message :
+                  'Failed to fetch weather data. Please try again.'}
+            </p>
           </div>
         )}
 
@@ -71,34 +80,9 @@ export default function Home() {
         {currentWeather && !isLoadingWeather && !isLoadingForecast && (
           <div className="space-y-8">
             {/* Current Weather and Favorites Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2">
               <WeatherCard weather={currentWeather} units={units} />
-              
-              <div className="relative backdrop-blur-glassmorphic bg-glass-gradient border border-glass-border rounded-2xl p-8 w-full h-full flex flex-col">
-                <h2 className="text-2xl font-medium text-white/90 mb-6">Favorite Cities</h2>
-                {favorites.length > 0 ? (
-                    <div className="flex-1 overflow-y-auto space-y-3 custom-scrollbar">
-                      {favorites.map((city) => (
-                        <button
-                          key={city}
-                          onClick={() => setQuery(`q=${city}`)}
-                          className="w-full px-6 py-4 bg-white/5 border border-glass-border rounded-xl
-                            text-white/90 transition-all duration-300 hover:bg-white/10 hover:scale-105
-                            text-left overflow-hidden overflow-ellipsis whitespace-nowrap"
-                        >
-                          {city}
-                        </button>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="flex-1 flex flex-col items-center justify-center">
-                      <div className="text-white/60 text-center">
-                        <p className="text-lg mb-2">No favorite cities yet</p>
-                        <p className="text-sm">Search for a city and click the heart icon to add it to your favorites</p>
-                      </div>
-                    </div>
-                  )}
-                </div>
+              <FavoritesCard favorites={favorites} onSelectCity={handleSelectCity} />
             </div>
 
             {/* Forecast Section */}
