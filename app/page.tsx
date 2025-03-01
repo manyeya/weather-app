@@ -6,6 +6,7 @@ import WeatherCard from './components/WeatherCard';
 import ForecastCard from './components/ForecastCard';
 import FavoritesCard from './components/FavoritesCard';
 import { HourlyForecast } from './components/HourlyForecast';
+import Loading from './components/loading';
 import { useCurrentWeather, useForecast } from '@/lib/services/weather/hooks';
 import { useUserLocation } from '@/lib/services/location/hooks';
 import { useFavoriteCities } from '@/lib/services/storage/hooks';
@@ -44,25 +45,23 @@ export default function Home() {
     <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-purple-900 flex items-center">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
-        <div className="flex flex-col items-center mb-4">
-          <div className="w-full max-w-2xl flex justify-between items-center">
-            <SearchBar onSearch={handleSearch} />
-            <button
-              onClick={toggleUnits}
-              className="px-6 py-4 backdrop-blur-glassmorphic bg-glass-gradient border border-glass-border rounded-2xl
-                text-white/90 transition-all duration-300 hover:bg-glass-background-hover hover:scale-105 whitespace-nowrap text-sm"
-            >
-              {units === 'metric' ? '°C to °F' : '°F to °C'}
-            </button>
-          </div>
-        </div>
-
-        {/* Loading and Error States */}
-        {(isLoadingWeather || isLoadingForecast) && (
-          <div className="text-center text-white/90 text-lg animate-pulse py-6">
-            Loading...
+        {currentWeather && !isLoadingWeather && !isLoadingForecast && (
+          <div className="flex flex-col items-center mb-4">
+            <div className="w-full max-w-2xl flex justify-between items-center">
+              <SearchBar onSearch={handleSearch} />
+              <button
+                onClick={toggleUnits}
+                className="px-6 py-4 backdrop-blur-glassmorphic bg-glass-gradient border border-glass-border rounded-2xl
+                  text-white/90 transition-all duration-300 hover:bg-glass-background-hover hover:scale-105 whitespace-nowrap text-sm"
+              >
+                {units === 'metric' ? '°C to °F' : '°F to °C'}
+              </button>
+            </div>
           </div>
         )}
+
+        {/* Loading and Error States */}
+        {(isLoadingWeather || isLoadingForecast) && <Loading />}
 
         {(weatherError || forecastError) && (
           <div className="relative backdrop-blur-glassmorphic bg-red-500/10 border border-red-500/20 rounded-xl p-4 text-white/90 text-center max-w-2xl mx-auto">

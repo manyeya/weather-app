@@ -50,16 +50,12 @@ export default function WeatherCard({ weather, units }: WeatherCardProps) {
         </div>
         
         <div className="mt-3 flex items-center">
-          <div className="animate-float">
+  
             <img
               src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
               alt={weather.weather[0].description}
               className="w-16 h-16 drop-shadow-lg"
             />
-          </div>
-          <p className="text-base text-white/90 capitalize ml-1">
-            {weather.weather[0].description}
-          </p>
         </div>
         
         <div className="mt-3 grid grid-cols-2 gap-3">

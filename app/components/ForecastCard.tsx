@@ -47,13 +47,11 @@ export default function ForecastCard({ forecast, units }: ForecastCardProps) {
               <p className="font-medium text-white/80 text-sm">
                 {new Date(day.date).toLocaleDateString('en-US', { weekday: 'short' })}
               </p>
-              <div className="my-1 animate-float">
                 <img
                   src={`https://openweathermap.org/img/wn/${day.icon}@2x.png`}
                   alt={day.description}
                   className="w-12 h-12 drop-shadow-lg"
                 />
-              </div>
               <p className="text-xl font-light text-white tracking-tight">
                 {Math.round(day.temp)}{getUnitSymbol()}
               </p>
