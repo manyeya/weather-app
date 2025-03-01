@@ -10,6 +10,11 @@ A modern weather application built with Next.js that provides current weather co
 - Search functionality for different locations
 - Persistent storage for recent searches
 - Responsive design with Tailwind CSS
+- Units toggle (Metric/Imperial)
+- Favorites system to save and quickly access preferred cities
+- Interactive hourly temperature chart with adjustable time ranges (6h/12h/24h)
+- Glassmorphic UI with elegant animations and transitions
+- Dynamic weather icon display based on current conditions
 
 ## Tech Stack
 
@@ -18,6 +23,8 @@ A modern weather application built with Next.js that provides current weather co
 - **Styling**: Tailwind CSS
 - **State Management**: React Query
 - **Font**: Geist (optimized with next/font)
+- **Charts**: Recharts for interactive data visualization
+- **UI Components**: Custom glassmorphic components
 
 ## Project Structure
 
@@ -27,6 +34,8 @@ weather-app/
 │   ├── components/         # React components
 │   ├── fonts/             # Font files
 │   └── layout.tsx         # Root layout
+├── components/            # Reusable UI components
+│   └── ui/               # Shared UI elements
 ├── lib/                   # Application logic
 │   ├── context/          # React context providers
 │   └── services/         # Core services
@@ -67,3 +76,4 @@ To learn more about the technologies used:
 - [Next.js Documentation](https://nextjs.org/docs)
 - [React Query Documentation](https://tanstack.com/query/latest)
 - [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [Recharts Documentation](https://recharts.org/en-US/)
