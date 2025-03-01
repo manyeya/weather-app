@@ -10,11 +10,16 @@ export async function getCurrentWeather(query: string, units: 'metric' | 'imperi
         `${BASE_URL}/weather?${query}&units=${units}&appid=${API_KEY}`
     );
 
+    const data = await response.json();
+
     if (!response.ok) {
-        throw new Error('Failed to fetch weather data');
+        if (response.status === 404 || data.cod === '404') {
+            throw new Error('City not found. Please check the spelling and try again.');
+        }
+        throw new Error(data.message || 'Failed to fetch weather data');
     }
 
-    return response.json();
+    return data;
 }
 
 // Get 5-day forecast data by city name or coordinates
@@ -23,9 +28,14 @@ export async function getForecast(query: string, units: 'metric' | 'imperial' = 
         `${BASE_URL}/forecast?${query}&units=${units}&appid=${API_KEY}`
     );
 
+    const data = await response.json();
+
     if (!response.ok) {
-        throw new Error('Failed to fetch forecast data');
+        if (response.status === 404 || data.cod === '404') {
+            throw new Error('City not found. Please check the spelling and try again.');
+        }
+        throw new Error(data.message || 'Failed to fetch forecast data');
     }
 
-    return response.json();
+    return data;
 }
