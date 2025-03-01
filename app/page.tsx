@@ -1,101 +1,111 @@
-import Image from "next/image";
+'use client';
+
+import { useState, useEffect } from 'react';
+import SearchBar from './components/SearchBar';
+import WeatherCard from './components/WeatherCard';
+import ForecastCard from './components/ForecastCard';
+import { useCurrentWeather, useForecast } from '@/lib/services/weather/hooks';
+import { useUserLocation } from '@/lib/services/location/hooks';
+import { useFavoriteCities } from '@/lib/services/storage/hooks';
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [query, setQuery] = useState<string>('');
+  const [units, setUnits] = useState<'metric' | 'imperial'>('metric');
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const { data: favorites = [] } = useFavoriteCities();
+  const { data: currentWeather, isLoading: isLoadingWeather, error: weatherError } = useCurrentWeather(query, units);
+  const { data: forecast, isLoading: isLoadingForecast, error: forecastError } = useForecast(query, units);
+  const { data: location, isError: locationError } = useUserLocation();
+
+  useEffect(() => {
+    if (location) {
+      setQuery(`lat=${location.lat}&lon=${location.lon}`);
+    } else if (locationError) {
+      console.error('Failed to get initial location');
+      setQuery('q=Pretoria');
+    }
+  }, [location, locationError]);
+
+  const toggleUnits = () => {
+    setUnits(units === 'metric' ? 'imperial' : 'metric');
+  };
+
+  const handleSearch = (searchQuery: string) => {
+    setQuery(searchQuery);
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-purple-900 p-8">
+      <div className="max-w-7xl mx-auto">
+        {/* Header Section */}
+        <div className="flex flex-col items-center mb-12">
+          <h1 className="text-5xl font-light text-white/90 tracking-wide mb-8">
+            Weather Forecast
+          </h1>
+          <div className="w-full max-w-2xl flex justify-between items-center gap-4">
+            <SearchBar onSearch={handleSearch} />
+            <button
+              onClick={toggleUnits}
+              className="px-6 py-4 backdrop-blur-glassmorphic bg-glass-gradient border border-glass-border rounded-2xl
+                text-white/90 transition-all duration-300 hover:bg-glass-background-hover hover:scale-105 whitespace-nowrap"
+            >
+              {units === 'metric' ? '°C to °F' : '°F to °C'}
+            </button>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        {/* Loading and Error States */}
+        {(isLoadingWeather || isLoadingForecast) && (
+          <div className="text-center text-white/90 text-xl animate-pulse py-12">
+            Loading...
+          </div>
+        )}
+
+        {(weatherError || forecastError) && (
+          <div className="relative backdrop-blur-glassmorphic bg-red-500/10 border border-red-500/20 rounded-2xl p-6 text-white/90 text-center max-w-2xl mx-auto">
+            Failed to fetch weather data. Please try again.
+          </div>
+        )}
+
+        {/* Main Content */}
+        {currentWeather && !isLoadingWeather && !isLoadingForecast && (
+          <div className="space-y-8">
+            {/* Current Weather and Favorites Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <WeatherCard weather={currentWeather} units={units} />
+              
+              <div className="relative backdrop-blur-glassmorphic bg-glass-gradient border border-glass-border rounded-2xl p-8 w-full h-full flex flex-col">
+                <h2 className="text-2xl font-medium text-white/90 mb-6">Favorite Cities</h2>
+                {favorites.length > 0 ? (
+                    <div className="flex-1 overflow-y-auto space-y-3 custom-scrollbar">
+                      {favorites.map((city) => (
+                        <button
+                          key={city}
+                          onClick={() => setQuery(`q=${city}`)}
+                          className="w-full px-6 py-4 bg-white/5 border border-glass-border rounded-xl
+                            text-white/90 transition-all duration-300 hover:bg-white/10 hover:scale-105
+                            text-left overflow-hidden overflow-ellipsis whitespace-nowrap"
+                        >
+                          {city}
+                        </button>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="flex-1 flex flex-col items-center justify-center">
+                      <div className="text-white/60 text-center">
+                        <p className="text-lg mb-2">No favorite cities yet</p>
+                        <p className="text-sm">Search for a city and click the heart icon to add it to your favorites</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+            </div>
+
+            {/* Forecast Section */}
+            {forecast && <ForecastCard forecast={forecast} units={units} />}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
