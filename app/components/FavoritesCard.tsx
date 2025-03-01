@@ -1,5 +1,6 @@
 import { FC, useState } from 'react';
 import { useCurrentWeather } from '@/lib/services/weather/hooks';
+// import Image from 'next/image';
 
 interface FavoritesCardProps {
   favorites: string[];
@@ -47,8 +48,8 @@ const CityWeatherButton: FC<WeatherButtonProps> = ({ city, onSelect, className }
 
 const FavoritesCard: FC<FavoritesCardProps> = ({ favorites, onSelectCity }) => {
   const [showSidebar, setShowSidebar] = useState(false);
-  const displayedFavorites = favorites.slice(0, 4);
-  const hasMoreFavorites = favorites.length > 4;
+  const displayedFavorites = favorites.slice(0, 3);
+  const hasMoreFavorites = favorites.length > 3;
 
   return (
     <>
@@ -72,7 +73,7 @@ const FavoritesCard: FC<FavoritesCardProps> = ({ favorites, onSelectCity }) => {
                     text-white/90 transition-all duration-300 hover:bg-white/10 
                     text-center text-sm"
               >
-                See More ({favorites.length - 4} more)
+                See More ({favorites.length - 3} more)
               </button>
             )}
           </div>
