@@ -5,9 +5,9 @@ const API_KEY = process.env.NEXT_PUBLIC_OPENWEATHERMAP_API_KEY || '';
 const BASE_URL = 'https://api.openweathermap.org/data/2.5';
 
 // Get current weather data by city name or coordinates
-export async function getCurrentWeather(query: string, units: 'metric' | 'imperial' = 'metric'): Promise<WeatherData> {
+export async function getCurrentWeather(query: string): Promise<WeatherData> {
     const response = await fetch(
-        `${BASE_URL}/weather?${query}&units=${units}&appid=${API_KEY}`
+        `${BASE_URL}/weather?${query}&units=metric&appid=${API_KEY}`
     );
 
     const data = await response.json();
@@ -23,9 +23,9 @@ export async function getCurrentWeather(query: string, units: 'metric' | 'imperi
 }
 
 // Get 5-day forecast data by city name or coordinates
-export async function getForecast(query: string, units: 'metric' | 'imperial' = 'metric'): Promise<ForecastData> {
+export async function getForecast(query: string): Promise<ForecastData> {
     const response = await fetch(
-        `${BASE_URL}/forecast?${query}&units=${units}&appid=${API_KEY}`
+        `${BASE_URL}/forecast?${query}&units=metric&appid=${API_KEY}`
     );
 
     const data = await response.json();
