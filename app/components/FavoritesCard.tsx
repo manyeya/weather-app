@@ -24,10 +24,10 @@ const FavoritesCard: FC<FavoritesCardProps> = ({ favorites, onSelectCity }) => {
           ))}
         </div>
       ) : (
-        <div className="flex-1 flex flex-col items-center justify-center max-h-[150px]">
-          <div className="text-white/60 text-center">
+        <div className="flex-1 flex flex-col items-center justify-center max-h-[150px] w-full max-w-full">
+          <div className="text-white/60 text-center space-y-4 flex justify-center items-center flex-col">
             <p className="text-base mb-1">No favorite cities yet</p>
-            <p className="text-xs">Search for a city and click the star icon to add it to your favorites</p>
+            <p className="text-xs md:w-32 text-center">Search for a city and click the star icon to add it to your favorites</p>
           </div>
         </div>
       )}
