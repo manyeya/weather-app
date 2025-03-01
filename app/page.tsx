@@ -5,6 +5,7 @@ import SearchBar from './components/SearchBar';
 import WeatherCard from './components/WeatherCard';
 import ForecastCard from './components/ForecastCard';
 import FavoritesCard from './components/FavoritesCard';
+import { HourlyForecast } from './components/HourlyForecast';
 import { useCurrentWeather, useForecast } from '@/lib/services/weather/hooks';
 import { useUserLocation } from '@/lib/services/location/hooks';
 import { useFavoriteCities } from '@/lib/services/storage/hooks';
@@ -89,8 +90,13 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Forecast Section */}
-            {forecast && <ForecastCard forecast={forecast} units={units} />}
+            {/* Forecast Sections */}
+            {forecast && (
+              <>
+                <ForecastCard forecast={forecast} units={units} />
+                <HourlyForecast forecast={forecast} />
+              </>
+            )}
           </div>
         )}
       </div>
