@@ -1,9 +1,7 @@
 "use client"
 
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
-import { getFavoriteCities } from "."
-
-const FAVORITES_KEY = 'weather-app-favorites'
+import { getFavoriteCities, addFavoriteCity, removeFavoriteCity } from "."
 
 export function useFavoriteCities() {
   return useQuery({
@@ -17,13 +15,8 @@ export function useAddFavoriteCity() {
   
   return useMutation({
     mutationFn: async (city: string) => {
-      const favorites = queryClient.getQueryData<string[]>(['favorites']) || []
-      if (!favorites.includes(city)) {
-        const newFavorites = [...favorites, city]
-        localStorage.setItem(FAVORITES_KEY, JSON.stringify(newFavorites))
-        return newFavorites
-      }
-      return favorites
+      addFavoriteCity(city)
+      return getFavoriteCities()
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['favorites'] })
@@ -36,10 +29,8 @@ export function useRemoveFavoriteCity() {
   
   return useMutation({
     mutationFn: async (city: string) => {
-      const favorites = queryClient.getQueryData<string[]>(['favorites']) || []
-      const updatedFavorites = favorites.filter(favorite => favorite !== city)
-      localStorage.setItem(FAVORITES_KEY, JSON.stringify(updatedFavorites))
-      return updatedFavorites
+      removeFavoriteCity(city)
+      return getFavoriteCities()
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['favorites'] })

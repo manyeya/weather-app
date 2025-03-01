@@ -1,5 +1,3 @@
-// Local storage utilities for favorite cities
-
 const FAVORITES_KEY = 'weather-app-favorites';
 
 // Get favorite cities from local storage
@@ -42,15 +40,3 @@ export const removeFavoriteCity = (city: string): void => {
   }
 }; 
 
-// Check if a city is in favorites
-export const isCityFavorite = (city: string): boolean => {
-  if (typeof window === 'undefined') return false;
-  
-  try {
-    const favorites = getFavoriteCities();
-    return favorites.includes(city);
-  } catch (error) {
-    console.error('Error checking if city is favorite:', error);
-    return false;
-  }
-};
