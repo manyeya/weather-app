@@ -32,32 +32,32 @@ export default function ForecastCard({ forecast, units }: ForecastCardProps) {
   }, []).slice(0, 5); // Get only 5 days
 
   return (
-    <div className="relative backdrop-blur-glassmorphic bg-glass-gradient border border-glass-border rounded-2xl p-8 w-full max-w-4xl mt-6 overflow-hidden">
+    <div className="relative backdrop-blur-glassmorphic bg-glass-gradient border border-glass-border rounded-2xl p-4 w-full mt-3 overflow-hidden">
       <div className="absolute inset-0 bg-glass-background opacity-50"></div>
       
       <div className="relative z-10">
-        <h3 className="text-xl font-medium text-white/90 mb-6">5-Day Forecast</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-5 gap-4">
+        <h3 className="text-lg font-medium text-white/90 mb-3">5-Day Forecast</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-5 gap-2">
           {dailyForecasts.map((day, index) => (
             <div 
               key={index} 
-              className="flex flex-col items-center p-4 rounded-xl border border-glass-border bg-white/5 backdrop-blur-sm
+              className="flex flex-col items-center p-2 rounded-xl border border-glass-border bg-white/5 backdrop-blur-sm
                 transition-all duration-300 hover:bg-white/10 hover:scale-105"
             >
-              <p className="font-medium text-white/80">
+              <p className="font-medium text-white/80 text-sm">
                 {new Date(day.date).toLocaleDateString('en-US', { weekday: 'short' })}
               </p>
-              <div className="my-2 animate-float">
+              <div className="my-1 animate-float">
                 <img
                   src={`https://openweathermap.org/img/wn/${day.icon}@2x.png`}
                   alt={day.description}
-                  className="w-16 h-16 drop-shadow-lg"
+                  className="w-12 h-12 drop-shadow-lg"
                 />
               </div>
-              <p className="text-2xl font-light text-white tracking-tight">
+              <p className="text-xl font-light text-white tracking-tight">
                 {Math.round(day.temp)}{getUnitSymbol()}
               </p>
-              <p className="text-sm text-white/70 text-center capitalize mt-1">
+              <p className="text-xs text-white/70 text-center capitalize">
                 {day.description}
               </p>
             </div>

@@ -40,19 +40,19 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-purple-900 p-8">
+    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-purple-900 p-24 flex items-center">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
-        <div className="flex flex-col items-center mb-12">
-          <h1 className="text-5xl font-light text-white/90 tracking-wide mb-8">
+        <div className="flex flex-col items-center mb-4">
+          <h1 className="text-4xl font-light text-white/90 tracking-wide mb-4">
             Weather Forecast
           </h1>
-          <div className="w-full max-w-2xl flex justify-between items-center gap-4">
+          <div className="w-full max-w-2xl flex justify-between items-center gap-2">
             <SearchBar onSearch={handleSearch} />
             <button
               onClick={toggleUnits}
-              className="px-6 py-4 backdrop-blur-glassmorphic bg-glass-gradient border border-glass-border rounded-2xl
-                text-white/90 transition-all duration-300 hover:bg-glass-background-hover hover:scale-105 whitespace-nowrap"
+              className="px-4 py-2 backdrop-blur-glassmorphic bg-glass-gradient border border-glass-border rounded-xl
+                text-white/90 transition-all duration-300 hover:bg-glass-background-hover hover:scale-105 whitespace-nowrap text-sm"
             >
               {units === 'metric' ? '°C to °F' : '°F to °C'}
             </button>
@@ -61,14 +61,14 @@ export default function Home() {
 
         {/* Loading and Error States */}
         {(isLoadingWeather || isLoadingForecast) && (
-          <div className="text-center text-white/90 text-xl animate-pulse py-12">
+          <div className="text-center text-white/90 text-lg animate-pulse py-6">
             Loading...
           </div>
         )}
 
         {(weatherError || forecastError) && (
-          <div className="relative backdrop-blur-glassmorphic bg-red-500/10 border border-red-500/20 rounded-2xl p-6 text-white/90 text-center max-w-2xl mx-auto">
-            <p className="text-lg mb-2">
+          <div className="relative backdrop-blur-glassmorphic bg-red-500/10 border border-red-500/20 rounded-xl p-4 text-white/90 text-center max-w-2xl mx-auto">
+            <p className="text-base">
               {weatherError instanceof Error ? weatherError.message :
                 forecastError instanceof Error ? forecastError.message :
                   'Failed to fetch weather data. Please try again.'}
@@ -78,11 +78,15 @@ export default function Home() {
 
         {/* Main Content */}
         {currentWeather && !isLoadingWeather && !isLoadingForecast && (
-          <div className="space-y-8">
+          <div className="space-y-4 flex flex-col w-full">
             {/* Current Weather and Favorites Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2">
-              <WeatherCard weather={currentWeather} units={units} />
-              <FavoritesCard favorites={favorites} onSelectCity={handleSelectCity} />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="h-full">
+                <WeatherCard weather={currentWeather} units={units} />
+              </div>
+              <div className="h-full">
+                <FavoritesCard favorites={favorites} onSelectCity={handleSelectCity} />
+              </div>
             </div>
 
             {/* Forecast Section */}
