@@ -1,6 +1,7 @@
 'use client';
 
 import { ForecastData } from "@/lib/services/weather/types";
+import Image from "next/image";
 
 interface DailyForecast {
   date: string;
@@ -47,10 +48,12 @@ export default function ForecastCard({ forecast, units }: ForecastCardProps) {
               <p className="font-medium text-white/80 text-sm">
                 {new Date(day.date).toLocaleDateString('en-US', { weekday: 'short' })}
               </p>
-                <img
+                <Image
                   src={`https://openweathermap.org/img/wn/${day.icon}@2x.png`}
                   alt={day.description}
                   className="w-12 h-12 drop-shadow-lg"
+                  width={48}
+                  height={48}
                 />
               <p className="text-xl font-light text-white tracking-tight">
                 {Math.round(day.temp)}{getUnitSymbol()}

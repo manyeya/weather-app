@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { useCurrentWeather } from '@/lib/services/weather/hooks';
-// import Image from 'next/image';
+import Image from 'next/image';
 
 interface FavoritesCardProps {
   favorites: string[];
@@ -33,10 +33,12 @@ const CityWeatherButton: FC<WeatherButtonProps> = ({ city, onSelect, className }
         </div>
         {weather && (
           <div className="flex items-center space-x-2">
-            <img 
+            <Image 
               src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}.png`}
               alt={weather.weather[0].description}
               className="w-8 h-8"
+              width={32}
+              height={32}
             />
             <span>{Math.round(weather.main.temp)}°C</span>
           </div>
