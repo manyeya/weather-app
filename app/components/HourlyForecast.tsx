@@ -90,7 +90,7 @@ export function HourlyForecast({ forecast }: HourlyForecastProps) {
             </SelectContent>
           </Select>
         </div>
-        <div className="pt-2 sm:pt-3 text-white/90 overflow-x-auto -mx-4 px-4">
+        <div className=" text-white/90 overflow-x-auto -mx-4 px-4">
           <ChartContainer
             config={chartConfig}
             className="aspect-auto min-h-[180px] h-[180px] sm:h-[140px] max-h-[300px] w-full min-w-[500px]"
