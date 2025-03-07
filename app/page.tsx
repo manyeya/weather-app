@@ -42,16 +42,18 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-purple-900 flex items-center">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-purple-900 flex items-center px-4 py-6">
+      <div className="w-full max-w-7xl mx-auto">
         {/* Header Section */}
         {currentWeather && !isLoadingWeather && !isLoadingForecast && (
           <div className="flex flex-col items-center mb-4">
-            <div className="w-full max-w-2xl flex justify-between items-center">
-              <SearchBar onSearch={handleSearch} />
+            <div className="w-full max-w-2xl flex flex-col sm:flex-row gap-4 sm:gap-2 items-center">
+              <div className="w-full sm:flex-1">
+                <SearchBar onSearch={handleSearch} />
+              </div>
               <button
                 onClick={toggleUnits}
-                className="px-6 py-4 backdrop-blur-glassmorphic bg-glass-gradient border border-glass-border rounded-2xl
+                className="w-full sm:w-auto px-6 py-4 backdrop-blur-glassmorphic bg-glass-gradient border border-glass-border rounded-2xl
                   text-white/90 transition-all duration-300 hover:bg-glass-background-hover hover:scale-105 whitespace-nowrap text-sm"
               >
                 {units === 'metric' ? '°C to °F' : '°F to °C'}

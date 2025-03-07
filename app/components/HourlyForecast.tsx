@@ -46,16 +46,16 @@ export function HourlyForecast({ forecast }: HourlyForecastProps) {
     <div className="relative overflow-hidden backdrop-blur-glassmorphic bg-glass-gradient border border-glass-border rounded-2xl w-full transition-all duration-300 hover:bg-glass-background-hover">
       <div className="absolute inset-0 bg-glass-background opacity-50"></div>
       <div className="relative z-10">
-        <div className="flex items-center gap-2 space-y-0 border-b border-glass-border py-3 px-4 sm:flex-row">
-          <div className="grid flex-1 gap-0.5 text-center sm:text-left">
+        <div className="flex flex-col sm:flex-row items-center gap-3 border-b border-glass-border py-3 px-4">
+          <div className="grid flex-1 gap-0.5 text-center w-full sm:text-left">
             <h2 className="text-lg font-medium text-white/90">Hourly Temperature</h2>
             <p className="text-xs text-white/70">
               Temperature breakdown for {forecast.city.name}
             </p>
           </div>
-          <Select value={timeRange} onValueChange={setTimeRange}>
+          <Select value={timeRange} onValueChange={setTimeRange} >
             <SelectTrigger
-              className="w-[160px] rounded-lg sm:ml-auto bg-white/10 border-glass-border text-white hover:bg-white/20 transition-colors"
+              className="w-full sm:w-[160px] rounded-lg sm:ml-auto bg-white/10 border-glass-border text-white hover:bg-white/20 transition-colors min-h-[44px]"
               aria-label="Select time range"
             >
               <SelectValue placeholder="Next 24 hours" />
@@ -73,10 +73,10 @@ export function HourlyForecast({ forecast }: HourlyForecastProps) {
             </SelectContent>
           </Select>
         </div>
-        <div className="pt-2 sm:pt-3 text-white/90">
+        <div className="pt-2 sm:pt-3 text-white/90 overflow-x-auto -mx-4 px-4">
           <ChartContainer
             config={chartConfig}
-            className="aspect-auto min-h-[140px] h-[140px] max-h-[300px] w-full"
+            className="aspect-auto min-h-[180px] h-[180px] sm:h-[140px] max-h-[300px] w-full min-w-[500px]"
           >
             <AreaChart data={chartData}>
               <defs>

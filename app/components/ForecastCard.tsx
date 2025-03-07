@@ -36,14 +36,14 @@ export default function ForecastCard({ forecast, units }: ForecastCardProps) {
     <div className="relative backdrop-blur-glassmorphic bg-glass-gradient border border-glass-border rounded-2xl p-4 w-full mt-3 overflow-hidden">
       <div className="absolute inset-0 bg-glass-background opacity-50"></div>
       
-      <div className="relative z-10">
-        <h3 className="text-lg font-medium text-white/90 mb-3">5-Day Forecast</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-5 gap-2">
+      <div className="relative z-10 px-1">
+        <h3 className="text-lg font-medium text-white/90 mb-3 px-2">5-Day Forecast</h3>
+        <div className="flex sm:grid sm:grid-cols-5 gap-3 overflow-x-auto pb-4 px-2 snap-x snap-mandatory -mx-2 sm:mx-0 sm:pb-0 sm:overflow-x-visible">
           {dailyForecasts.map((day, index) => (
             <div 
               key={index} 
-              className="flex flex-col items-center p-2 rounded-xl border border-glass-border bg-white/5 backdrop-blur-sm
-                transition-all duration-300 hover:bg-white/10 hover:scale-105"
+              className="flex-shrink-0 w-[120px] sm:w-auto snap-center flex flex-col items-center p-3 rounded-xl border border-glass-border bg-white/5 backdrop-blur-sm
+                transition-all duration-300 hover:bg-white/10 hover:scale-105 touch-pan-x"
             >
               <p className="font-medium text-white/80 text-sm">
                 {new Date(day.date).toLocaleDateString('en-US', { weekday: 'short' })}

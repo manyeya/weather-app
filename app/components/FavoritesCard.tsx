@@ -19,8 +19,8 @@ const CityWeatherButton: FC<WeatherButtonProps> = ({ city, onSelect, className }
   return (
     <button
       onClick={() => onSelect(`q=${city}`)}
-      className={`block w-full px-3 py-2 bg-white/5 border border-glass-border rounded-lg
-          text-white/90 transition-all duration-300 hover:bg-white/10 
+      className={`block w-full px-4 py-3 bg-white/5 border border-glass-border rounded-lg
+          text-white/90 transition-all duration-300 hover:bg-white/10 active:scale-[0.98]
           text-left text-sm ${className || ''}`}
       type="button"
     >
@@ -56,10 +56,10 @@ const FavoritesCard: FC<FavoritesCardProps> = ({ favorites, onSelectCity }) => {
   return (
     <>
       <div className="relative backdrop-blur-glassmorphic bg-glass-gradient border border-glass-border rounded-2xl p-4 w-full h-full flex flex-col overflow-hidden">
-        <h2 className="text-lg font-medium text-white/90 mb-3">Favorite Cities</h2>
+        <h2 className="text-lg font-medium text-white/90 mb-3 sm:mb-4">Favorite Cities</h2>
         {favorites.length > 0 ? (
           <div className="flex flex-col">
-            <div className="space-y-2 w-full max-w-full">
+            <div className="space-y-3 w-full max-w-full">
               {displayedFavorites.map((city) => (
                 <CityWeatherButton
                   key={city}
@@ -71,8 +71,8 @@ const FavoritesCard: FC<FavoritesCardProps> = ({ favorites, onSelectCity }) => {
             {hasMoreFavorites && (
               <button
                 onClick={() => setShowSidebar(true)}
-                className="mt-4 w-full px-3 py-2 bg-white/5 border border-glass-border rounded-lg
-                    text-white/90 transition-all duration-300 hover:bg-white/10 
+                className="mt-4 w-full px-4 py-3 bg-white/5 border border-glass-border rounded-lg
+                    text-white/90 transition-all duration-300 hover:bg-white/10 active:scale-[0.98]
                     text-center text-sm"
               >
                 See More ({favorites.length - 3} more)
@@ -81,28 +81,36 @@ const FavoritesCard: FC<FavoritesCardProps> = ({ favorites, onSelectCity }) => {
           </div>
         ) : (
           <div className="flex-1 flex flex-col items-center justify-center max-h-[150px] w-full max-w-full">
-            <div className="text-white/60 text-center space-y-4 flex justify-center items-center flex-col">
+            <div className="text-white/60 text-center space-y-4 flex justify-center items-center flex-col px-4">
               <p className="text-base mb-1">No favorite cities yet</p>
-              <p className="text-xs md:w-32 text-center">Search for a city and click the star icon to add it to your favorites</p>
+              <p className="text-xs text-center">Search for a city and click the star icon to add it to your favorites</p>
             </div>
           </div>
         )}
       </div>
 
-      {/* Floating Sidebar */}
+      {/* Bottom Sheet / Sidebar */}
       {showSidebar && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex justify-end">
-          <div className="w-full max-w-md h-full bg-glass-gradient border-l border-glass-border p-6 animate-slide-in">
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-xl font-medium text-white/90">All Favorites</h2>
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex sm:justify-end touch-none">
+          <div className="w-full sm:max-w-md h-[85vh] sm:h-full bg-glass-gradient border-t sm:border-l border-glass-border p-4 sm:p-6 animate-slide-in mt-auto sm:mt-0 rounded-t-2xl sm:rounded-none">
+            <div className="flex justify-between items-center mb-4 sm:mb-6">
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setShowSidebar(false)}
+                  className="text-white/70 hover:text-white/90 p-2 sm:hidden -ml-2"
+                >
+                  ↓
+                </button>
+                <h2 className="text-xl font-medium text-white/90">All Favorites</h2>
+              </div>
               <button
                 onClick={() => setShowSidebar(false)}
-                className="text-white/70 hover:text-white/90"
+                className="hidden sm:block text-white/70 hover:text-white/90"
               >
                 ✕
               </button>
             </div>
-            <div className="space-y-2 overflow-y-auto max-h-[calc(100vh-8rem)]">
+            <div className="space-y-3 overflow-y-auto max-h-[calc(85vh-8rem)] sm:max-h-[calc(100vh-8rem)] pb-safe">
               {favorites.map((city) => (
                 <CityWeatherButton
                   key={city}

@@ -28,13 +28,13 @@ export default function WeatherCard({ weather, units }: WeatherCardProps) {
     <div className="relative overflow-hidden backdrop-blur-glassmorphic bg-glass-gradient border border-glass-border rounded-2xl p-4 w-full h-full flex flex-col transition-all duration-300 hover:bg-glass-background-hover group">
       <div className="absolute inset-0 bg-glass-background opacity-50"></div>
       
-      <div className="relative z-10 flex-1">
-        <div className="flex justify-between items-start">
+      <div className="relative z-10 flex-1 p-1">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 sm:gap-0">
           <div>
-            <h2 className="text-xl font-medium text-white/90">
+            <h2 className="text-lg sm:text-xl font-medium text-white/90">
               {weather.name}, {weather.sys.country}
             </h2>
-            <p className="text-5xl font-light text-white mt-1 tracking-tight">
+            <p className="text-4xl sm:text-5xl font-light text-white mt-1 tracking-tight">
               {Math.round(weather.main.temp)}{getUnitSymbol()}
             </p>
           </div>
@@ -58,28 +58,28 @@ export default function WeatherCard({ weather, units }: WeatherCardProps) {
             />
         </div>
         
-        <div className="mt-3 grid grid-cols-2 gap-3">
-          <div className="space-y-1">
-            <p className="text-white/80 text-xs">Feels like</p>
-            <p className="text-white text-base font-medium">
+        <div className="mt-4 grid grid-cols-2 gap-4">
+          <div className="space-y-1.5">
+            <p className="text-white/80 text-xs sm:text-sm">Feels like</p>
+            <p className="text-white text-sm sm:text-base font-medium">
               {Math.round(weather.main.feels_like)}{getUnitSymbol()}
             </p>
           </div>
-          <div className="space-y-1">
-            <p className="text-white/80 text-xs">Wind</p>
-            <p className="text-white text-base font-medium">
+          <div className="space-y-1.5">
+            <p className="text-white/80 text-xs sm:text-sm">Wind</p>
+            <p className="text-white text-sm sm:text-base font-medium">
               {weather.wind.speed} {getWindSpeedUnit()}
             </p>
           </div>
-          <div className="space-y-1">
-            <p className="text-white/80 text-xs">Humidity</p>
-            <p className="text-white text-base font-medium">
+          <div className="space-y-1.5">
+            <p className="text-white/80 text-xs sm:text-sm">Humidity</p>
+            <p className="text-white text-sm sm:text-base font-medium">
               {weather.main.humidity}%
             </p>
           </div>
-          <div className="space-y-1">
-            <p className="text-white/80 text-xs">Pressure</p>
-            <p className="text-white text-base font-medium">
+          <div className="space-y-1.5">
+            <p className="text-white/80 text-xs sm:text-sm">Pressure</p>
+            <p className="text-white text-sm sm:text-base font-medium">
               {weather.main.pressure} hPa
             </p>
           </div>
