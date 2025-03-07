@@ -11,7 +11,7 @@ export function useCurrentWeather(query: string, units: 'metric' | 'imperial' = 
     queryKey: ['weather', query],
     queryFn: () => getCurrentWeather(query),
     enabled: !!query,
-    select: (data) => convertWeatherData(data, units) as WeatherData
+    select: (data: WeatherData) => convertWeatherData(data, units) as WeatherData
   });
   
   return result;
@@ -22,7 +22,7 @@ export function useForecast(query: string, units: 'metric' | 'imperial' = 'metri
     queryKey: ['forecast', query],
     queryFn: () => getForecast(query),
     enabled: !!query,
-    select: (data) => convertWeatherData(data, units) as ForecastData
+    select: (data: ForecastData) => convertWeatherData(data, units) as ForecastData
   });
   
   return result;

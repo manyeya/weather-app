@@ -22,43 +22,44 @@ export const convertWindSpeed = (speed: number, units: 'metric' | 'imperial'): n
   return units === 'metric' ? speed : metersPerSecToMph(speed);
 };
 
-type WeatherDataItem = WeatherData | ForecastData['list'][0];
-
-export const convertWeatherData = (data: WeatherData | ForecastData | null, units: 'metric' | 'imperial') => {
+export const convertWeatherData = (data: WeatherData | ForecastData | null, units: 'metric' | 'imperial'): WeatherData | ForecastData | null => {
   if (!data) return data;
 
-  const convertSingleWeather = (weather: WeatherDataItem) => {
-    const convertedMain = {
-      ...weather.main,
-      temp: convertTemperature(weather.main.temp, units),
-      feels_like: convertTemperature(weather.main.feels_like, units),
-    };
-
-    if (weather.main.temp_min !== undefined) {
-      convertedMain.temp_min = convertTemperature(weather.main.temp_min, units);
-    }
-    if (weather.main.temp_max !== undefined) {
-      convertedMain.temp_max = convertTemperature(weather.main.temp_max, units);
-    }
-
-    return {
-      ...weather,
-      main: convertedMain,
-      wind: {
-        ...weather.wind,
-        speed: convertWindSpeed(weather.wind.speed, units).toPrecision(2)
-      }
-    };
-  };
-
-  // Handle forecast data structure
   if ('list' in data) {
+    // Handle forecast data
     return {
       ...data,
-      list: data.list.map(convertSingleWeather)
-    };
+      list: data.list.map(item => ({
+        ...item,
+        main: {
+          ...item.main,
+          temp: convertTemperature(item.main.temp, units),
+          feels_like: convertTemperature(item.main.feels_like, units),
+          temp_min: item.main.temp_min !== undefined ? convertTemperature(item.main.temp_min, units) : undefined,
+          temp_max: item.main.temp_max !== undefined ? convertTemperature(item.main.temp_max, units) : undefined,
+        },
+        wind: {
+          ...item.wind,
+          speed: Number(convertWindSpeed(item.wind.speed, units).toFixed(2))
+        }
+      }))
+    } as ForecastData;
   }
 
-  // Handle current weather data structure
-  return convertSingleWeather(data);
+  // Handle current weather data
+  const weatherData = data as WeatherData;
+  return {
+    ...weatherData,
+    main: {
+      ...weatherData.main,
+      temp: convertTemperature(weatherData.main.temp, units),
+      feels_like: convertTemperature(weatherData.main.feels_like, units),
+      temp_min: weatherData.main.temp_min !== undefined ? convertTemperature(weatherData.main.temp_min, units) : undefined,
+      temp_max: weatherData.main.temp_max !== undefined ? convertTemperature(weatherData.main.temp_max, units) : undefined,
+    },
+    wind: {
+      ...weatherData.wind,
+      speed: Number(convertWindSpeed(weatherData.wind.speed, units).toFixed(2))
+    }
+  } as WeatherData;
 };
