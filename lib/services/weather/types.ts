@@ -6,6 +6,8 @@ export interface WeatherData {
       feels_like: number;
       humidity: number;
       pressure: number;
+      temp_min?: number;
+      temp_max?: number;
     };
     weather: {
       id: number;
@@ -29,6 +31,8 @@ export interface WeatherData {
         temp: number;
         feels_like: number;
         humidity: number;
+        temp_min?: number;
+        temp_max?: number;
       };
       weather: {
         id: number;

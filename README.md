@@ -2,6 +2,11 @@
 
 A modern weather application built with Next.js that provides current weather conditions and forecasts.
 
+<p align="center">
+  <img src="public/weather-screenshot0.jpeg" alt="Weather App Screenshot" width="600" />
+  <img src="public/weather-screenshot1.jpeg" alt="Weather App Screenshot" width="600" />
+</p>
+
 ## Features
 
 - Real-time weather data display

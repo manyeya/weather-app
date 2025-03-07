@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
+import type { WeatherData, ForecastData } from "./services/weather/types"
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -21,19 +22,28 @@ export const convertWindSpeed = (speed: number, units: 'metric' | 'imperial'): n
   return units === 'metric' ? speed : metersPerSecToMph(speed);
 };
 
-export const convertWeatherData = (data: any, units: 'metric' | 'imperial') => {
+type WeatherDataItem = WeatherData | ForecastData['list'][0];
+
+export const convertWeatherData = (data: WeatherData | ForecastData | null, units: 'metric' | 'imperial') => {
   if (!data) return data;
 
-  const convertSingleWeather = (weather: any) => {
+  const convertSingleWeather = (weather: WeatherDataItem) => {
+    const convertedMain = {
+      ...weather.main,
+      temp: convertTemperature(weather.main.temp, units),
+      feels_like: convertTemperature(weather.main.feels_like, units),
+    };
+
+    if (weather.main.temp_min !== undefined) {
+      convertedMain.temp_min = convertTemperature(weather.main.temp_min, units);
+    }
+    if (weather.main.temp_max !== undefined) {
+      convertedMain.temp_max = convertTemperature(weather.main.temp_max, units);
+    }
+
     return {
       ...weather,
-      main: {
-        ...weather.main,
-        temp: convertTemperature(weather.main.temp, units),
-        feels_like: convertTemperature(weather.main.feels_like, units),
-        temp_min: weather.main.temp_min ? convertTemperature(weather.main.temp_min, units) : undefined,
-        temp_max: weather.main.temp_max ? convertTemperature(weather.main.temp_max, units) : undefined,
-      },
+      main: convertedMain,
       wind: {
         ...weather.wind,
         speed: convertWindSpeed(weather.wind.speed, units).toPrecision(2)
@@ -42,7 +52,7 @@ export const convertWeatherData = (data: any, units: 'metric' | 'imperial') => {
   };
 
   // Handle forecast data structure
-  if (data.list) {
+  if ('list' in data) {
     return {
       ...data,
       list: data.list.map(convertSingleWeather)
