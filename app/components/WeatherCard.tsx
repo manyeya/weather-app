@@ -30,8 +30,8 @@ export default function WeatherCard({ weather, units }: WeatherCardProps) {
       <div className="absolute inset-0 bg-glass-background opacity-50"></div>
       
       <div className="relative z-10 flex-1 p-1">
-        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 sm:gap-0">
-          <div>
+        <div className="flex justify-between items-start gap-2">
+          <div className="flex-1">
             <h2 className="text-lg sm:text-xl font-medium text-white/90">
               {weather.name}, {weather.sys.country}
             </h2>
@@ -41,7 +41,7 @@ export default function WeatherCard({ weather, units }: WeatherCardProps) {
           </div>
           <button
             onClick={toggleFavorite}
-            className={`text-xl transition-transform duration-300 hover:scale-110 ${
+            className={`text-xl transition-transform duration-300 hover:scale-110 shrink-0 ${
               isFavorite ? 'text-yellow-400' : 'text-white/70 hover:text-white'
             }`}
             aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
