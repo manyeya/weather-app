@@ -58,7 +58,6 @@ export default function WeatherCard({ weather, units }: WeatherCardProps) {
               className="w-16 h-16 drop-shadow-lg"
               width={64}
               height={64}
-              unoptimized
             />
         </div>
         
