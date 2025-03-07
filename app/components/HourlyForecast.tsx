@@ -58,7 +58,9 @@ export function HourlyForecast({ forecast }: HourlyForecastProps) {
               className="w-full sm:w-[160px] rounded-lg sm:ml-auto bg-white/10 border-glass-border text-white hover:bg-white/20 transition-colors min-h-[44px]"
               aria-label="Select time range"
             >
-              <SelectValue placeholder="Next 24 hours" />
+              <SelectValue>
+                {timeRange === "24h" ? "Next 24 hours" : timeRange === "12h" ? "Next 12 hours" : "Next 6 hours"}
+              </SelectValue>
             </SelectTrigger>
             <SelectContent className="rounded-xl bg-glass-gradient backdrop-blur-glassmorphic border-glass-border">
               <SelectItem value="24h" className="rounded-lg text-white/90 hover:bg-white/10">
