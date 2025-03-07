@@ -2,6 +2,7 @@
 
 import { WeatherData } from '@/lib/services/weather/types';
 import { useIsCityFavorite, useAddFavoriteCity, useRemoveFavoriteCity } from '@/lib/services/storage/hooks';
+import Image from 'next/image';
 
 interface WeatherCardProps {
   weather: WeatherData;
@@ -51,10 +52,13 @@ export default function WeatherCard({ weather, units }: WeatherCardProps) {
         
         <div className="mt-3 flex items-center">
   
-            <img
+            <Image
               src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
               alt={weather.weather[0].description}
               className="w-16 h-16 drop-shadow-lg"
+              width={64}
+              height={64}
+              unoptimized
             />
         </div>
         

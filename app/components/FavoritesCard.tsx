@@ -39,6 +39,7 @@ const CityWeatherButton: FC<WeatherButtonProps> = ({ city, onSelect, className }
               className="w-8 h-8"
               width={32}
               height={32}
+              unoptimized
             />
             <span>{Math.round(weather.main.temp)}°C</span>
           </div>

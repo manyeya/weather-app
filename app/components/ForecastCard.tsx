@@ -54,6 +54,7 @@ export default function ForecastCard({ forecast, units }: ForecastCardProps) {
                   className="w-12 h-12 drop-shadow-lg"
                   width={48}
                   height={48}
+                  unoptimized
                 />
               <p className="text-xl font-light text-white tracking-tight">
                 {Math.round(day.temp)}{getUnitSymbol()}
