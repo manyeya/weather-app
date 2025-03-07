@@ -43,7 +43,7 @@ export default function ForecastCard({ forecast, units }: ForecastCardProps) {
             <div 
               key={index} 
               className="flex-shrink-0 w-[120px] sm:w-auto snap-center flex flex-col items-center p-3 rounded-xl border border-glass-border bg-white/5 backdrop-blur-sm
-                transition-all duration-300 hover:bg-white/10 hover:scale-105 touch-pan-x"
+                transition-all duration-300 hover:bg-white/10 touch-pan-x"
             >
               <p className="font-medium text-white/80 text-sm">
                 {new Date(day.date).toLocaleDateString('en-US', { weekday: 'short' })}

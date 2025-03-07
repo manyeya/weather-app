@@ -4,13 +4,15 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Loading() {
   return (
-    <div className="min-h-screen flex items-center">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-purple-900 flex items-center px-4 py-6">
+      <div className="w-full max-w-7xl mx-auto">
         {/* Header Section Skeleton */}
         <div className="flex flex-col items-center mb-4">
-          <div className="w-full max-w-2xl flex justify-between items-center">
-            <Skeleton className="h-14 w-64 rounded-2xl" /> {/* Search Bar */}
-            <Skeleton className="h-14 w-32 rounded-2xl" /> {/* Units Toggle */}
+          <div className="w-full justify-between flex flex-col sm:flex-row gap-4 sm:gap-2 items-center">
+            <div className="w-full sm:flex-1">
+              <Skeleton className="h-14 w-full rounded-2xl" /> {/* Search Bar */}
+            </div>
+            <Skeleton className="h-14 w-full sm:w-32 rounded-2xl" /> {/* Units Toggle */}
           </div>
         </div>
 
@@ -60,9 +62,9 @@ export default function Loading() {
           {/* 5-Day Forecast Skeleton */}
           <div className="relative backdrop-blur-glassmorphic bg-glass-gradient border border-glass-border rounded-2xl p-4 w-full">
             <Skeleton className="h-6 w-32 mb-3" /> {/* Title */}
-            <div className="grid grid-cols-1 sm:grid-cols-5 gap-2">
+            <div className="flex sm:grid sm:grid-cols-5 gap-3 overflow-x-auto pb-4 px-2 snap-x snap-mandatory -mx-2 sm:mx-0 sm:pb-0 sm:overflow-x-visible">
               {[...Array(5)].map((_, i) => (
-                <div key={i} className="flex flex-col items-center p-2 rounded-xl border border-glass-border bg-white/5">
+                <div key={i} className="flex-shrink-0 w-[120px] sm:w-auto snap-center flex flex-col items-center p-3 rounded-xl border border-glass-border bg-white/5">
                   <Skeleton className="h-4 w-16 mb-2" /> {/* Day */}
                   <Skeleton className="h-12 w-12 rounded-full mb-2" /> {/* Weather Icon */}
                   <Skeleton className="h-6 w-12 mb-1" /> {/* Temperature */}
@@ -74,15 +76,15 @@ export default function Loading() {
 
           {/* Hourly Forecast Skeleton */}
           <div className="relative backdrop-blur-glassmorphic bg-glass-gradient border border-glass-border rounded-2xl w-full">
-            <div className="flex items-center gap-2 space-y-0 border-b border-glass-border py-3 px-4 sm:flex-row">
-              <div className="grid flex-1 gap-1">
+            <div className="flex flex-col sm:flex-row items-center gap-3 border-b border-glass-border py-3 px-4">
+              <div className="grid flex-1 gap-1 text-center w-full sm:text-left">
                 <Skeleton className="h-6 w-48" /> {/* Title */}
                 <Skeleton className="h-4 w-64" /> {/* Subtitle */}
               </div>
-              <Skeleton className="h-10 w-[160px] rounded-lg" /> {/* Time Range Selector */}
+              <Skeleton className="h-11 w-full sm:w-[160px] rounded-lg" /> {/* Time Range Selector */}
             </div>
-            <div className="p-4">
-              <Skeleton className="h-[140px] w-full rounded-xl" /> {/* Chart */}
+            <div className="pt-2 sm:pt-3 overflow-x-auto -mx-4 px-4">
+              <Skeleton className="h-[180px] sm:h-[140px] w-full min-w-[500px] rounded-xl" /> {/* Chart */}
             </div>
           </div>
         </div>

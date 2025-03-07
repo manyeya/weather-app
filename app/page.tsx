@@ -43,11 +43,11 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-purple-900 flex items-center px-4 py-6">
-      <div className="w-full max-w-7xl mx-auto">
+      <div className="w-full max-w-7xl mx-auto lg:px-60">
         {/* Header Section */}
         {currentWeather && !isLoadingWeather && !isLoadingForecast && (
           <div className="flex flex-col items-center mb-4">
-            <div className="w-full max-w-2xl flex flex-col sm:flex-row gap-4 sm:gap-2 items-center">
+            <div className="w-full flex flex-col sm:flex-row gap-4 sm:gap-2 justify-between items-center">
               <div className="w-full sm:flex-1">
                 <SearchBar onSearch={handleSearch} />
               </div>
@@ -66,12 +66,28 @@ export default function Home() {
         {(isLoadingWeather || isLoadingForecast) && <Loading />}
 
         {(weatherError || forecastError) && (
-          <div className="relative backdrop-blur-glassmorphic bg-red-500/10 border border-red-500/20 rounded-xl p-4 text-white/90 text-center max-w-2xl mx-auto">
-            <p className="text-base">
-              {weatherError instanceof Error ? weatherError.message :
+          <div className="relative backdrop-blur-glassmorphic bg-red-500/10 border border-red-500/20 rounded-xl p-6 text-white/90 text-center max-w-2xl mx-auto flex flex-col items-center gap-4">
+            <p className="text-lg">
+              {weatherError instanceof Error ? 
+                weatherError.message === "Not Found" ? 
+                  "City not found. Please check the spelling and try again." :
+                  weatherError.message :
                 forecastError instanceof Error ? forecastError.message :
                   'Failed to fetch weather data. Please try again.'}
             </p>
+            <button
+              onClick={() => {
+                if (location) {
+                  setQuery(`lat=${location.lat}&lon=${location.lon}`);
+                } else {
+                  setQuery('q=Pretoria');
+                }
+              }}
+              className="px-6 py-3 backdrop-blur-glassmorphic bg-white/10 border border-glass-border rounded-xl
+                text-white/90 transition-all duration-300 hover:bg-white/20 hover:scale-105 text-sm"
+            >
+              Return to Home
+            </button>
           </div>
         )}
 
